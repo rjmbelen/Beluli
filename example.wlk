@@ -94,8 +94,56 @@ object falconArmor {
  	
  }
  
- /*Modelar lo siguiente: A lo largo de sus batallas X cambia su armadura por una nueva, 
-  * la Shadow Armor. Esta sombría armadura tiene un nivel de desgaste. Cada vez que 
-  X entrena con ella este desgaste aumenta tantos puntos como el daño que causa el X-Buster, 
-  independientemente del tiempo entrenado. 
-  * La bonificación de daño que proporciona esta armadura es 80 dividido el desgaste. */
+-----------------------------------------------------------------------------------------------------------------------------------
+
+/** MEGAMAN CON AGUS */
+object falconArmor{
+	var potencia = 25
+	var resistencia = 10
+	
+	method bonificacionDanio(){
+		return (potencia + resistencia) / 2
+	}
+	method entrenamiento(cantMinutos){
+		resistencia = (resistencia - cantMinutos).max(0)
+		potencia+=10
+	}
+}
+
+object xBuster{
+	var danioBase = 10
+	method danioBase(){
+		return danioBase
+		}
+		method danio(cant){
+			danioBase += cant
+		}
+}
+
+object x{
+	var armadura = falconArmor
+	var porta = xBuster
+	
+	method fuerza(){
+		return porta.danioBase() + armadura.bonificacionDanio()
+	}
+	method entrenamiento(cantMinutos){
+		porta.danio(2*cantMinutos)
+		armadura.entrenamiento(cantMinutos) //porque pide los efectos en mi armadura
+	}
+	
+	method cambiarArmadura(_armadura){
+		armadura = _armadura
+	}
+}
+
+object shadowArmor{
+	var desgaste = 0
+	
+	method entrenamiento(cantMinutos){
+		desgaste += xBuster.danioBase()
+	} 
+	method bonificacionDanio(){
+		return (80/desgaste)
+	}
+}
