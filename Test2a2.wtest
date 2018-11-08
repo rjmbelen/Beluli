@@ -1,0 +1,48 @@
+import TpIntegradorparte2.*
+describe "TEST PARTE 2-2"{
+	var rolando = new Personaje()
+	var espadaDelDestino = new Arma()
+	var mascaraOscura = new Mascara(indice=1, minimo=4)
+
+	fixture{
+		rolando.agregarArtefacto(espadaDelDestino)
+		rolando.agregarArtefacto(collarDivino)
+		rolando.agregarArtefacto(mascaraOscura)
+		collarDivino.cambiarPerlas(5)
+	}
+	test "Eliminar todos los artefactos de Rolando.Conocer la habilidad para la lucha de Rolando."{
+		rolando.removerArtefactos()
+		assert.equals(1,rolando.lucha())
+	}
+	test "Conocer la habilidad para la lucha de Rolando con todos los artefactos."{
+		assert.equals(13,rolando.lucha())
+	}
+	test "Cambiar la cantidad de perlas del collar divino a 3.Conocer la habilidad para la lucha de Rolando 
+con todos los artefactos."{
+		collarDivino.cambiarPerlas(3)
+		assert.equals(11,rolando.lucha())
+	}
+	test "Cambiar el valor base para la lucha de Rolando a 8.Conocer la habilidad para la lucha de Rolando 
+con todos los artefactos."{
+		rolando.cambiarValorBaseLucha(8)
+		assert.equals(20,rolando.lucha())
+	}
+	test "Hacer que ocurra un eclipse.Preguntar por el valor de lucha de la máscara oscura."{
+		fuerzaOscura.eclipse()
+		assert.equals(5,mascaraOscura.poderArtefacto(rolando))
+	}
+	test "Eliminar la máscara oscura de los artefactos de Rolando.Conocer la habilidad para la lucha de Rolando."{
+		rolando.removerArtefacto(mascaraOscura)
+		assert.equals(9,rolando.lucha())
+	}
+	test "Tener una máscara (para nada) oscura con índice de oscuridad = 0. Preguntar por el valor de lucha 
+de la máscara oscura de Rolando."{
+		var mascara = new Mascara(indice=0)
+		assert.equals(4,mascara.poderArtefacto(rolando))
+	}
+	test "Tener una máscara (para nada) oscura con índice de oscuridad = 0, y valor mínimo en 2. Preguntar
+ por el valor de lucha de la máscara oscura de Rolando."{
+ 	var mascara = new Mascara(indice=0, minimo=2)
+ 	assert.equals(2,mascara.poderArtefacto(rolando))
+ 	}
+}
