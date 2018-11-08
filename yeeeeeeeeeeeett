@@ -1,0 +1,108 @@
+//PARADIGMAS J.M.BELEN
+
+
+////////////////////////////////CLASES
+
+class YaExisteArchivo inherits Exception{}
+//var facultad= new Carpeta(nombreCarpeta='facultad',archivosEnCarpeta=['paradimgas'])
+class Carpeta{   //cada vez que se hace un CAMBIO, CAMBIA LA CARPETA.  
+	var property nombreCarpeta
+	var property archivosEnCarpeta = []
+	method contiene(nombreArchivo){
+		return archivosEnCarpeta.contains(nombreArchivo)
+		
+	}
+	
+	method agregarArchivo(_archivo)
+	{
+		if(self.contiene(_archivo)){
+			//null
+			throw new YaExisteArchivo("El archivo ya existe en esta carpeta. No se puede contener archivos iguales.")
+		}
+		
+		else{
+	
+		archivosEnCarpeta.add(_archivo)
+	}
+	
+	}
+	
+	method elimiarArchivo(_archivo){
+		archivosEnCarpeta.remove(_archivo)
+	}
+	
+	method elimiar(){
+		archivosEnCarpeta.clear()
+	}
+	
+}
+class Archivo{    
+	var nombreArchivo //  var paradigmas= new Archivo(nombreArchivo='paradigmas',contenido=['objetos'])
+	var contenido = ['']
+}
+
+
+
+
+
+
+//carpeta vacia= pdep 
+
+class Commit{
+	var property descripcion
+	var receta=[crear,crear,agregar]
+	method agregarTarea(_tarea){
+		receta.add(_tarea)
+		}
+	method removerTarea(_tarea){
+		receta.remove(_tarea)
+	}
+	method aplicarCommit(carpeta,archivo){
+		carpeta.forEach({unCambio=> unCambio.realizar(archivo)})
+		
+	}	
+}
+
+
+
+
+class Crear{
+
+method realizar(carpeta,nombreArchivo){
+		if(!carpeta.contiene(nombreArchivo)){
+		return new Archivo(nombreArchivo=nombreArchivo,contenido = [])}
+		else{throw new YaExisteArchivo("No se puede realizar cambio")}
+	}
+	
+}
+
+
+class Eliminar{
+	
+method realizar(carpeta,nombreArchivo){
+		if(!carpeta.contiene(nombreArchivo)){
+		carpeta.eliminarArchivo(nombreArchivo)}
+		else{throw new YaExisteArchivo("ERROR")}
+	}
+}
+
+class Agregar{
+	
+	method realizar(carpeta,archivo){
+		if(!carpeta.contiene(archivo)){
+		carpeta.archivosEnCarpeta().last().add(texto)}
+		else{throw new YaExisteArchivo("ERROR")}
+	}
+}
+
+class Sacar{
+	
+var carpeta
+var archivo
+method realizar(texto){
+	if(!carpeta.contiene(texto)){
+		archivo.last().remove(texto)}
+		else{throw new YaExisteArchivo("ERROR")}
+	}
+	
+}
