@@ -1,0 +1,85 @@
+import parcial.*
+import Commits.*
+import Branches.*
+import Autores.*
+
+describe "Tests"{
+//	var 0 = new Object()
+	var pdep = new Carpeta(nombre = "PdeP")
+	var crearLeeme = new Crear (nombreArchivo="leeme.md")
+	var crearParcial = new Crear (nombreArchivo="parcial.wlk")
+	var agregarLeeme = new Agregar(nombreArchivo="leeme.md",texto="Este es un Parcial")
+	var commitInicial = new  Commit (autor=0,descripcion="commit inicial",tareas=[crearLeeme,crearParcial,crearParcial])
+	
+
+test " Agregar archivo pepe.man a una carpeta Josepes y confirmas que está ahí"{
+	var pepe = new Archivo (nombre="pepe.man", contenido = "011100010")
+	var carpeta = new Carpeta(nombre="Josepes")
+	carpeta.agregarArchivo(pepe)
+	assert.that(carpeta.contiene("pepe.man"))
+}
+
+test " Dada una carpeta PdeP, se aplica el commitInicial, que crea 'leeme.md','parcial.wlk' y agrega 'Este es un parcial' al leeme"{
+	commitInicial.aplicar(pdep)
+	assert.that(pdep.contiene("leeme.md")&&pdep.contiene("parcial.wlk"))
+}
+
+test " Dada una carpeta PdeP, que ya tiene un archivo 'parcial.wlk, se aplica el commitInicial, que crea 'leeme.md','parcial.wlk' y agrega 'este es un parcial' al leeme"{
+	pdep.agregarArchivo(new Archivo(nombre="parcial.wlk", contenido = ""))
+	assert.throwsExceptionLike(new YaExisteException("Ya existe El archivo"), {commitInicial.aplicar(pdep)})
+	//assert.that(pdep.contiene("parcial.wlk"))
+}
+
+test "De una carpeta pdep, hacer el chechout de una branck que contiene el commit inicial y su revert, y asegurarse de que está vacia"{	
+	
+	var revertCommitInicial = commitInicial.revert()
+	var salsaBranch = new Branch (duenio = 0,commits=[commitInicial,revertCommitInicial])
+	
+	salsaBranch.ckeckout(pdep)
+	
+	assert.that(pdep.estaVacia())
+}	
+
+test "marcelo crea un branch, agrega a Guillermo y Gustavo, Guillermo comitea 2 veces,Marcelo comitea, Mauri, que es admin comitea,Gustavo comitea, mauri hace un blame y cconvierte, marce se venga"{
+	var marce = new Usuario(tipoUsuario = tipoNormal)
+	var guille = new Usuario(tipoUsuario=tipoNormal)
+	var gusta = new Usuario(tipoUsuario=tipoNormal)
+	var mauri = new Usuario (tipoUsuario = tipoAdministrador)
+	
+	var leBranch = marce.crearBranch()
+	marce.agregarColaboradores(leBranch,guille)
+	marce.agregarColaboradores(leBranch,gusta)
+	
+	var crearFinal = new Crear (nombreArchivo="Final")
+	var agregarFinal1 = new Agregar(nombreArchivo="Final",texto = "Boca 2")
+	var comit1 = new Commit (autor = guille, descripcion ="",tareas=[crearFinal,agregarFinal1])
+	
+	var agregarFinal2 = new Agregar(nombreArchivo="Final",texto = "River 0")
+	var comit2 = new Commit (autor = guille, descripcion ="",tareas=[agregarFinal2])
+	
+	var sacarFinal1 0 new Sacar (nombreArchivo="Final",texto = "0")
+	var agregarFinal3 = new Agregar(nombreArchivo="Final",texto = "3")
+	var comit3= new Commit(autor = marce, descripcion = "",tareas=[sacarFinal1,agregarFinal3])
+	
+	var comit4 = comit3.revert()
+	
+	var crearRecaudacion = new Crear (nombreArchivo="Recaudacion")
+	var comit5 = new Commit(autor = gusta, descripcion = "",tareas=[crearRecaudacion])
+
+	guille.comitear(comit1,leBranch)
+	guille.comitear(comit2,leBranch)
+	gusta.comitear(comit3,leBranch)
+	mauri.comitear(comit4,leBranch)
+	gusta.comitear(comit5,leBranch)
+	leBranch.blame("Final").forEach({u=>marce.cambiarUsuarioA(u,tipoAdministrador)})
+	gusta.cambiarUsuarioA(mauri,tipoNormal)
+//	marce.cambiarUsuarioA(mauri,tipoAdministrador)
+	
+	var folder = new Carpeta(nombre = "Carpetita feliz", archivos = [])
+	leBranch.checkout(folder)
+	
+	assert.equals("Boca2River 0",folder.archivo("Final").contenido())
+}
+
+}
+
