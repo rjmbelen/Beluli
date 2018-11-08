@@ -1,0 +1,35 @@
+Clases mayuscula
+
+Class Consciente inherits Persona{
+//SI QUIERO MODIFICAR el metodo que existia, poner override
+override method entrarEnContacto(alguien){
+self.parasitoMasFuerte().infectarA(alguien)
+//aca adentro modifico el method
+}
+
+//para hacer que se borren todos los que cumplen esa condicion de menor a cero
+coleccion.removeAllSuchThat({p=>p.corduraAfectada()<=0)
+
+//si quiero hacera algo varias veces(pero solo para esa misma accion) si es distinta no sirve. Le agrego cant.times
+2.times({i=>pepe.desayunar()})
+2.times({i=>parasitos.add(parasito)})
+
+var distancia =(10->2)  
+var distancia2=(2->1)
+// x e y 
+distancia.x() - distancia.y()
+   10                2
+
+//se puede agregar un new en el method
+
+method hijo(){
+	return new Parasito(corduraAfectada= 1.max(corduraAfectada/2)
+}
+
+class SinPlataException inherits Exception{}
+
+
+/// lo uso donde quiero
+
+
+throw new SinPlataException("Dinero Insuficiente")
