@@ -1,0 +1,54 @@
+import BELU.*
+
+describe "TEST PARTE 2"{
+
+fixture{
+	rolando.limpiar()
+	rolando.agregarArtefactos(espadaDelDestino)
+	rolando.agregarArtefactos(collarDivino)
+	rolando.agregarArtefactos(mascaraOscura)
+	collarDivino.perlas(5)
+}
+
+/*Rolando debe tener como artefactos la espada del destino, el collar divino y la máscara oscura.
+El collar divino debe tener 5 perlas.
+ */
+test "Eliminar todos los artefactos de Rolando.
+Conocer la habilidad para la lucha de Rolando.
+" {
+	rolando.limpiar()
+	assert.equals(1,rolando.lucha())
+
+}
+
+test "Conocer la habilidad para la lucha de Rolando con todos los artefactos."{
+	
+	assert.equals(13,rolando.lucha())
+}
+
+test "Cambiar la cantidad de perlas del collar divino a 3.
+Conocer la habilidad para la lucha de Rolando con todos los artefactos."{
+	collarDivino.perlas(3)
+	assert.equals(11,rolando.lucha())
+}
+
+test "Cambiar el valor base para la lucha de Rolando a 8.
+Conocer la habilidad para la lucha de Rolando con todos los artefactos.
+"{
+	rolando.valorBaseDeLucha(8)
+	assert.equals(20,rolando.lucha())
+}
+
+test "Hacer que ocurra un eclipse.
+Preguntar por el valor de lucha de la máscara oscura.
+"{
+fuerzaOscura.eclipse()
+assert.equals(5,mascaraOscura.lucha())
+}
+
+test "Eliminar la máscara oscura de los artefactos de Rolando.
+Conocer la habilidad para la lucha de Rolando."{
+	rolando.removerArtefactos(mascaraOscura)
+	assert.equals(9,rolando.lucha())
+}
+}
