@@ -66,3 +66,13 @@ Así entonces, utilizaremos otherwise (que en español significa "de otra manera
 la función en el caso de que no se cumplan ninguna de las anteriores condiciones.
 
 Esta condición peculiar debe ser siempre la última. Si no, cosas terribles podrían suceder
+
+
+
+///Patter Maching
+esVocalCerrada 'o' = True
+esVocalCerrada 'u' = True
+esVocalCerrada 'a' = False
+esVocalCerrada 'e' = False
+esVocalCerrada 'i' = False
+esVocalCerrada _ = False
