@@ -1,0 +1,146 @@
+// HACER APUNTE 12
+
+
+//HEROE
+
+object  shrek{
+	var misiones= [liberarAFiona]
+	var objetivos=[]
+	//var respeto= 0
+	
+	//method hacerMision(mision){
+		//respeto= respeto + mision.puntosDeRecompensa()
+	//}
+	method totalPuntosDeRecompensa(){
+		return misiones.sum({unM=>unM.puntosDeRecompensa()})
+	}
+	method cantidadDeMisiones(){
+		return misiones.size()
+	}
+	method agregarMision(mision){
+		misiones.add(mision)
+	}
+	method quitarMision(mision){
+		misiones.remove(mision)
+	}
+	method nuevoObjetivo(nuevo){
+		objetivos.add(nuevo)
+	}
+	method quitarObjetivo(objetivo){
+		objetivos.remove(objetivo)
+	}
+	
+	method misionesDificiles(){
+	return misiones.filter({unaM=>unaM.esDificil()})
+}
+
+
+	method solicitantesDeTodasSusMisiones(){
+		return misiones.map({unM=>unM.solicitante()})
+	}
+}
+
+// MISIONES 
+object liberarAFiona{
+	var trolls= 5
+	method esDificil(){
+		return trolls== 4 || trolls ==5
+	}
+	method puntosDeRecompensa(){
+		return 2*trolls
+	}
+	
+	method solicitante() = "Lord Farquaad"
+}
+
+
+object buscarPiedraFilosofal{
+	var kilometros= 40
+	method esDificil(){
+		return kilometros > 100
+	}
+	method solicitante() = "Mr DumblecofcofDore"
+	
+	method puntosDeRecompensa(){
+		if (kilometros>50){
+			return 10
+		}
+		else{
+			return 5
+		}
+	}
+	
+	//method localizacion(distancia){
+	//	kilometros= distancia
+	//}
+}
+
+
+
+
+ /*
+  * 7.7 Filter y el efecto colateral
+El resultado de enviar el mensaje misionesDifíciles() no altera las referencias de
+*  la colección original:
+*  Filter devuelve una copia de la colección 
+con los elementos que cumplen una condición!!!!!!!!!! QUE CUMPLEN CONDICION  DISTINTO DEL MAP 
+* QUE SE LE ENVIA CUALQUIER COSA:
+* method solicitantesDeTodasSusMisiones(){
+		return misiones.map({unM=>unM.solicitante()})
+	}
+	* 
+	* 
+	method solicitante() = "Lord Farquaad"
+	
+YA QUE ES UN METODO QUE NO TIENE UNA CONDINCION BOOLEANA, SOLO MUESTRA UN STRING.
+* 
+* MAP devuelve lista transformada, es decir coleccion pero con datos que no estaban en mi
+*lista original.
+*
+* > shrek.solicitantesDeMisMisiones()
+#{"Lord Farquaad", "Mr Dumblecofcofdore"}
+* 
+* 
+*  Map devuelve una colección nueva con los elementos transformados
+
+Esto tiene sentido, porque además pasamos de un conjunto de misiones a un conjunto de 
+* solicitantes.
+
+-------------------------------------------------------
+* 
+* filter
+* 
+* >>> shrek.misionesDificiles()
+[liberarAFiona[trolls=5]] 
+* 
+* 
+* devuelve lista con los cumplen condicion PERO SON LAS MISMAS MISIONES QUE ESTAN EN LA LISTA
+  
+  
+  
+  
+  
+  
+  ///////
+  * 
+  * 
+  // getter
+	method energia() { return energia }
+
+	// setter
+	method energia(_energia) { energia = _energia }
+
+(esta es la convención por defecto de Wollok)
+
+El getter se define como un método de una sola línea, que devuelve algo.
+El setter no, es un método que modifica el estado interno del objeto, no tiene
+*  necesidad de devolver nada.
+* 
+* 
+* property:
+* 
+* es como getter y setter
+* 
+*pero cuando quiero retornar un metodo con cosas como suma * etc entonces no se usa
+  
+  */
