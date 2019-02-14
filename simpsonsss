@@ -1,0 +1,82 @@
+/** CLASE 1- SIMPSONS */
+
+/*
+ > 
+ <
+ */
+
+object plantaNuclear {
+	var uranio= 10
+	var empleado= homero
+	
+	method uranio(){
+		return uranio
+	}
+	method cargamentoDeUranio(cantidad){
+		uranio+= cantidad
+	}
+	
+	method estaEnPeligro() {
+		//return self.uranio() > 10000
+		return uranio > 10000 && empleado.estaDistraido() || burns.seQuedoPobre()
+	}
+	
+	method cambiarEmpleado(nuevoE){
+		empleado = nuevoE
+	}
+	
+}
+
+
+object homero{
+	var donas= 2
+	method estaDistraido(){
+		return donas < 2
+	}
+	
+	method comprarDonas(){
+		donas += 12
+	}
+	
+	method comerDonas(){
+		donas --
+	}
+
+}
+
+object patoBalancion{
+	
+	method estaDistraido(){
+		
+		return false
+		
+		
+	}
+}
+
+object burns{
+	
+	var riqueza= true
+	
+	method seQuedoPobre(){
+		return riqueza 
+	}
+	
+	method riqueza(){
+		//riqueza= false
+	 	riqueza = riqueza.negate()
+	}
+	
+}
+
+object lenny{
+	var cerveza=4
+	
+	method estaDistraido(){
+		return cerveza  > 3 
+	}
+	
+	method tomarCerveza(cantidad){
+		cerveza += cantidad
+	}
+}
