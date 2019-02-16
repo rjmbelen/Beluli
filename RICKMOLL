@@ -1,0 +1,71 @@
+class Parasito{//MAYUSCULA Y SINGULAR
+	var nivelDeLastima
+	var afecta
+	method cordura(){
+		return afecta
+	}
+		method infectar(persona){
+		persona.agregarParasito(self)
+		if(persona.nivelDeCordura()>nivelDeLastima){
+			self.reproducirse()
+			persona.agregarParasito(self.reproducirse())
+			//persona.contagiarseCon(self.hijo())//aca si va el parasito HIJO
+		}	
+	}
+	method reproducirse(){
+		return new Parasito(
+			afecta=(afecta/2).max(1),
+			nivelDeLastima=(nivelDeLastima/4).max(10)
+		)
+	}
+	method modificarCordura(cant){
+		afecta-=cant
+	}
+}
+
+class Persona{
+	var property nivelDeCordura
+	var parasitos=[]
+	method parasitos(){
+		return parasitos
+	}
+	method parasitoMasFuerte(){
+		return parasitos.max({unParasito=>unParasito.cordura()})
+	}
+	
+	//PUNTO 1
+	method disparar(cant){
+		parasitos.forEach({unP=>unP.modificarCordura(cant*10)})
+		parasitos.removeAllSuchThat({p=>p.cordura()<=0})
+	}
+	method infectada(){
+		nivelDeCordura= nivelDeCordura - parasitos.size()
+	}
+	method agregarParasito(parasito){
+		parasitos.add(parasito)
+	}
+	method estarEnContactoCon(persona){
+		parasitos.forEach({unParasito=>unParasito.infectar(persona)})
+	}
+}
+
+//PUNTO 2
+class Consciente inherits Persona{
+	override method estarEnContactoCon(persona){
+		self.parasitoMasFuerte().infectar(persona)
+	}
+}
+//PUNTO 2
+class Inconsciente inherits Persona{
+	override method agregarParasito(parasito){
+		parasitos.add(parasito)
+		parasitos.add(parasito)
+		//2.times({parasitos.add(parasito)}) //lo hace dos veces
+	}
+}
+ /*
+* 	constructor(_nivelDeCordura,pepe){
+		nivelDeCordura=_nivelDeCordura
+		parasitos.add(pepe)
+	}
+ */
