@@ -1,0 +1,834 @@
+////////////////////////////////////
+/// clases pepita
+//MODULO 13
+ class Ave{
+ 	var energia = 50
+	method volar(kilometros) {
+		energia = energia - kilometros + 10
+	}
+	method comer(gramos) {
+		energia = energia + gramos * 4
+	}
+ }
+ 
+class Petrel inherits Ave{
+ 	//ya hereda los methods de la SUPERCLASE AVE
+ 	// Solo pongo OVERRIDE para modificar el method existente
+ 	var kilometrosVolados
+ 	override method volar(kilometros){
+ 		super(kilometros)
+ 		kilometrosVolados+= kilometros
+ 	}
+//aca se deja el metodo de antes con el SUPER pero luego se agrega algo+al method
+ 	
+ 	method cantidadQueVuela(){
+ 		return kilometrosVolados
+ 	}
+ }
+ 
+class Torcaza inherits Ave{
+	override method comer(gramos){
+		self.volar(1)
+		super(gramos)
+	}
+} 
+// aca se quiere modificar methodo pero a la vez mantener el existente por eso
+// se pone SUPER
+
+ 
+ ///////////////////////////////////////////////////////////////////////////////////////////////////
+ ////misiones
+ 
+ 
+ 
+ 
+ 
+ //MODULO 13
+ class Ave{
+ 	var energia = 50
+	method volar(kilometros) {
+		energia = energia - kilometros + 10
+	}
+	method comer(gramos) {
+		energia = energia + gramos * 4
+	}
+ }
+ 
+class Petrel inherits Ave{
+ 	//ya hereda los methods de la SUPERCLASE AVE
+ 	// Solo pongo OVERRIDE para modificar el method existente
+ 	var kilometrosVolados
+ 	override method volar(kilometros){
+ 		super(kilometros)
+ 		kilometrosVolados+= kilometros
+ 	}
+//aca se deja el metodo de antes con el SUPER pero luego se agrega algo+al method
+ 	
+ 	method cantidadQueVuela(){
+ 		return kilometrosVolados
+ 	}
+ }
+ 
+class Torcaza inherits Ave{
+	override method comer(gramos){
+		self.volar(1)
+		super(gramos)
+	}
+} 
+// aca se quiere modificar methodo pero a la vez mantener el existente por eso
+// se pone SUPER
+
+ 
+ //////////////////////////////////////
+ ////megaman
+ 
+ 
+ 
+ 
+ object x {
+	var armadura= falconArmor
+	var arma=xBuster
+	method armadura() {
+		return armadura
+	}
+	method arma(){
+		return arma
+	}
+	method cambiarArmadura(nueva){
+		armadura=nueva
+	}
+	method fuerza(){
+		return arma.danio() + armadura.danio()
+	}
+	method entrenar(tiempo){
+		arma.sumarDanio(tiempo)
+		armadura.entrenamiento(tiempo)
+	}	
+}	
+//	method entrenar(tiempo) {
+//            xbuster.daniar(2 * tiempo)
+//		armadura.entrenar(tiempo)
+//	}
+
+object falconArmor{
+	
+	var potencia= 25
+	var resistencia= 10
+	
+	method danio(){
+		return (potencia + resistencia) / 2
+	}
+	
+	method entrenamiento(minutos){
+		resistencia = (resistencia - minutos).max(0)
+		// resistencia = (resistencia - minutos).max(0) 
+		potencia += 10
+	}  
+}
+
+
+object xBuster{
+	var danio= 10
+	
+	
+	method danio(){
+		return danio
+	}
+	
+	method sumarDanio(minutos){
+		danio+= minutos*2
+	}
+}
+
+
+object shadowArmor{
+	var desgaste= 0
+	method entrenamiento(tiempo){
+		desgaste += xBuster.danio()
+	}
+	
+	method danio(){
+		return 80/desgaste
+	}
+}
+
+
+
+///////////////
+/// paquete mistorioso
+
+
+
+/AGUSTIN TEJERA - CURSO K2104 - TP2 OBJETOS
+
+object paqueteMisterioso{
+	var estaPago = true
+	var destino = brooklyn
+	
+	method puedeSerEntregado(mensajero){
+		return destino.puedePasar(mensajero) && estaPago  
+	}
+}
+
+object brooklyn{
+	method puedePasar(mensajero){
+ 		return mensajero.peso() < self.unaTonelada()
+	} 
+	
+	method unaTonelada(){
+ 		return 1000
+	}
+}
+
+object matrix{
+	method puedePasar(mensajero){ 
+ 		return mensajero.puedeHacerLlamada()
+	}
+}
+
+object roberto{
+	var peso = 90
+	var vehiculo = jenny
+	var puedeHacerLlamada = false
+	
+	method manejar(vehiculoNuevo){
+ 		vehiculo = vehiculoNuevo
+	}
+
+	method puedeHacerLlamada(){
+ 		return puedeHacerLlamada
+	}
+
+	method peso(){
+ 		return peso
+	}
+}
+
+object jenny{
+
+	method peso(){
+ 		return roberto.peso()
+	}
+}
+
+object mack{
+	var acoplado = 1
+
+	method peso(){
+ 		return roberto.peso() + self.mediaTonelada() * acoplado
+	}
+
+	method ponerAcoplado(){
+ 		acoplado++
+	}
+
+	// EL PESO EN CUALQUIER CASO ES EN KILOGRAMOS
+
+	method mediaTonelada(){
+ 		return 500
+	}
+}
+
+object chuckNorris{
+	var peso= 900
+	var puedeHacerLlamada= true
+
+	method peso(){
+ 		return peso
+	}
+
+	method puedeHacerLlamada(){
+ 		return puedeHacerLlamada
+	}
+}
+
+object neo{
+	var peso= 0
+	var tieneCredito= 1
+
+	method peso(){
+	return peso
+	}
+
+	method puedeHacerLlamada(){
+ 		return tieneCredito > 0
+	}
+
+	method llama(){
+ 		tieneCredito--
+	} 
+}
+
+//                       PARTE 2
+
+object fedax{
+	var mensajeros = [roberto, chuckNorris, neo]
+	var enviados = []
+
+	method contratar(mensajero){
+ 		mensajeros.add(mensajero)
+	}
+
+	method despedir(mensajero){
+ 		mensajeros.remove(mensajero)
+	}
+
+	method despedirATodos(){
+ 		mensajeros.clear()
+	}
+
+	method esGrande(){
+ 		return mensajeros.size() > 2
+	}
+
+	method ultimoMensajero(){
+ 		return mensajeros.last()
+	}
+
+	method primerMensajero(){
+ 		return mensajeros.first()
+	}
+
+	method pesoUltimoMensajero(){
+ 		 return self.ultimoMensajero().peso()
+	}
+
+	method elPrimeroPuedeEntregar(unPaquete) {
+ 		return unPaquete.puedeSerEntregado(self.primerMensajero())
+        //return unPaquete.puedeSerEntregado(mensajeros.first())
+        //return unPaquete.puedeSerEntregado(return mensajeros.first()) para que muestre
+      } // en consola al mensajero, en vez de True o False
+      
+    method puedeSerEntregado(paquete){
+    	return mensajeros.any({unMensajero=>paquete.puedeSerEntregado(unMensajero)})
+    }
+    method esFacil(paquete){
+    	return mensajeros.all({unMensajero=>paquete.puedeSerEntregado(unMensajero)})
+    }  //porque dice CUALQUIER MENSAJERO, NO SOLO UN UNICO!!!
+    method candidatos(paquete){
+    	return mensajeros.filter({unMensajero=>paquete.puedeSerEntregado(unMensajero)})
+    }
+    /*method tieneSobrepeso(){
+    	return mensajeros.sum({unMensajero =>})
+    }*/
+    method sobrePeso(){
+    	return self.pesoPromedio() > 500
+    }
+ //   method promedioPeso(){
+ //   	var x = mensajeros.map({unMensajero=>unMensajero.peso()})
+ //   	return x.sum({unMensajero=>unMensajero/mensajeros.size()})
+
+	method pesoPromedio(){
+ 		return mensajeros.sum({unMensajero => unMensajero.peso()})/mensajeros.size()
+	}
+    	method enviar(unPaquete){
+ 		if(self.puedeSerEntregado(unPaquete)){
+  			enviados.add(unPaquete)
+  		}
+  		else{
+ 			error.throwWithMessage("No hay mensajeros para la entrega")
+		}
+	}
+}    
+ //   method enviar(paquete){
+ //   	mensajeros.find({unMensajero=>unMensajero.puedeSerEntregado(paquete)})
+ //   	mensajeros.forEach({unMensajero=>unMensajero.enviados(paquete)})
+ //   }
+
+
+//							PARTE 3
+
+/*Hacer que la empresa de mensajería envíe un paquete. Para ello elige cualquier 
+ * mensajero entre los que pueden enviarlo, y registra que fue enviado. En el caso
+ *  de no haber nadie para enviarlo, debe informarse con un error descriptivo.
+
+
+*/
+
+
+
+
+
+
+
+/////////////////////////
+
+// class parasito
+
+
+
+
+
+
+class Parasito{//MAYUSCULA Y SINGULAR
+	var nivelDeLastima
+	var afecta
+	method cordura(){
+		return afecta
+	}
+		method infectar(persona){
+		persona.agregarParasito(self)
+		if(persona.nivelDeCordura()>nivelDeLastima){
+			self.reproducirse()
+			persona.agregarParasito(self.reproducirse())
+			//persona.contagiarseCon(self.hijo())//aca si va el parasito HIJO
+		}	
+	}
+	method reproducirse(){
+		return new Parasito(
+			afecta=(afecta/2).max(1),
+			nivelDeLastima=(nivelDeLastima/4).max(10)
+		)
+	}
+	method modificarCordura(cant){
+		afecta-=cant
+	}
+}
+
+class Persona{
+	var property nivelDeCordura
+	var parasitos=[]
+	method parasitos(){
+		return parasitos
+	}
+	method parasitoMasFuerte(){
+		return parasitos.max({unParasito=>unParasito.cordura()})
+	}
+	
+	//PUNTO 1
+	method disparar(cant){
+		parasitos.forEach({unP=>unP.modificarCordura(cant*10)})
+		parasitos.removeAllSuchThat({p=>p.cordura()<=0})
+	}
+	method infectada(){
+		nivelDeCordura= nivelDeCordura - parasitos.size()
+	}
+	method agregarParasito(parasito){
+		parasitos.add(parasito)
+	}
+	method estarEnContactoCon(persona){
+		parasitos.forEach({unParasito=>unParasito.infectar(persona)})
+	}
+}
+
+//PUNTO 2
+class Consciente inherits Persona{
+	override method estarEnContactoCon(persona){
+		self.parasitoMasFuerte().infectar(persona)
+	}
+}
+//PUNTO 2
+class Inconsciente inherits Persona{
+	override method agregarParasito(parasito){
+		parasitos.add(parasito)
+		parasitos.add(parasito)
+		//2.times({parasitos.add(parasito)}) //lo hace dos veces
+	}
+}
+ /*
+* 	constructor(_nivelDeCordura,pepe){
+		nivelDeCordura=_nivelDeCordura
+		parasitos.add(pepe)
+	}
+ */
+ 
+ 
+ 
+ 
+ ////////////////////////////////
+ ////recu objetos
+ 
+ 
+ //
+
+//velocidades
+
+//RUTAS------------------------------------------------------------------------
+
+class Ruta{
+	var property extension // kms
+	var maxima
+	method maxima()
+	
+	method desgaste(vehiculo){
+		if (vehiculo.ruedas().all({x=>x.desgasteRueda()<100})){   
+		vehiculo.ruedas().forEach({x=>x.aumentarDesgaste(1* vehiculo.velocidadFinal()/10)})
+	}
+	else{
+		error.throwWithMessage("No es posible")
+	}
+	
+	}
+	
+}
+class Tierra inherits Ruta{
+	override method maxima(){
+		return 60 - ((lluvia.cantCaida()).min(10))
+		//return (60 - (lluvia.cantCaida()).min(10))
+	}
+}
+
+class Ripio inherits Ruta{
+	override method maxima(){
+		return 80
+	}
+}
+
+class Asfalto inherits Ruta{
+	//
+	method indicarMaxima(kms){
+		maxima = kms
+	}
+	override method maxima(){
+		return maxima
+	}
+	
+	override method desgaste(vehiculo){
+		if(vehiculo.ruedas().all({x=>x.desgasteRueda()>100})){
+			error.throwWithMessage("No es posible")
+		  }
+		else if (!vehiculo== "carga") {
+		vehiculo.ruedas().forEach({x=>x.aumentarDesgaste(1*vehiculo.tiempo(self))})
+	}
+	else {
+		vehiculo.ruedas().forEach({x=>x.aumentarDesgaste(1*vehiculo.tiempo(self))})
+		vehiculo.ruedas().forEach({x=>x.aumentarDesgaste(1*vehiculo.tiempo(self))})
+	}
+	
+	}
+}
+
+//VEHICULO ------------------------------------------------------------------
+class Vehiculo{
+	//var property velocidadBase
+	var  ruedas= []
+	
+	method agregarRuedas(cant){
+		ruedas.add(cant)
+	}
+	method ruedas(){
+		return ruedas
+	}
+	method aumentarDesgaste(cant){
+		ruedas.forEach({x=>x.nivelDesgaste(cant)})
+	}
+	
+	 
+	method desgasteRueda(){
+		return ruedas.map({x=>x.nivelDesgaste()})  
+	}
+	
+	method velocidad(){
+		return self.velocidadBase() -viento.resistencia()
+		}
+		
+	method velocidadBase()
+	
+	method velocidadFinal(ruta){
+		return ruta.maxima().min(self.velocidad())
+	}
+	
+	method tiempo(ruta){
+		return ruta.extension() / self.velocidadFinal(ruta)
+	}
+}
+
+
+class Particular inherits Vehiculo{
+	var velocidadBase
+	
+	override method velocidadBase(){
+		return velocidadBase
+	}
+	
+	method base(kms){
+		velocidadBase= kms
+	}
+	
+	
+}
+
+class Carga inherits Vehiculo{
+	var property carga // toneladas
+	override method velocidadBase(){
+		if (self.carga()<40){
+			return 80
+		}
+		else {
+			return 60
+		}
+	}
+
+}
+
+class Transporte  inherits Vehiculo{
+	var property pasajero
+	override method velocidadBase(){
+		return 120 - self.pasajero()
+	}
+	
+	
+}
+
+// Desgaste -----------------
+
+class Desgaste{
+	var property nivelDesgaste
+	method nivelDesgaste(cant){
+		nivelDesgaste += cant
+	}
+}
+
+class Ruedas inherits Desgaste{
+	method desgasteRueda(){
+		return nivelDesgaste
+	}
+}
+
+
+// objetos Condiciones Climaticas-------------------------------------------------
+object viento{
+	var property resistencia= 0
+	method resistencia(){
+		return resistencia
+	}
+}
+
+// lluviaaaaaa----
+
+object lluvia{
+	var lluviaCaida
+	method cantCaida(){
+		return lluviaCaida
+	}
+	
+	method actualizarLluvia(mm){
+		lluviaCaida = mm
+	}
+}
+
+
+
+/*
+ * 
+ consola
+ 
+ >>> var rueda1= new Ruedas(nivelDesgaste= 13)
+>>> var rueda2= new Ruedas(nivelDesgaste= 13)
+>>> var rueda3= new Ruedas(nivelDesgaste= 35)
+>>> var rueda4= new Ruedas(nivelDesgaste= 40)
+>>> var camioneta= new Carga(carga= 3)
+>>> var ruta33= new Asfalto(extension= 100, maxima= 50)
+>>> camioneta.agregarRuedas(rueda1)
+>>> camioneta.agregarRuedas(rueda2)
+>>> camioneta.agregarRuedas(rueda3)
+>>> camioneta.agregarRuedas(rueda4)
+>>> camioneta
+un/a  Carga[ruedas=[un/a  Ruedas[nivelDesgaste=13], un/a  Ruedas[nivelDesgaste=13], un/a  Ruedas[nivelDesgaste=35], un/a  Ruedas[nivelDesgaste=40]], carga=3]
+>>> camioneta.desgasteRueda()
+[13, 13, 35, 40]
+>>> camioneta.tiempo(ruta33)
+2
+>>> ruta33.desgaste(camioneta)
+*/
+
+
+
+/////////////////////////////////
+
+//parcial objeteos
+
+
+/** First Wollok example */
+class Archivo{
+	var nombreArchivo
+	var contenido= []
+	var carpeta
+}
+
+class Carpeta inherits Archivo{
+	var listaDeArchivos= []
+	var nombreCarpeta
+	method agrupar(archivo){
+		if (self.contieneArchivo(archivo)){
+			return "la carpeta ya contiene un archivo con nombre igual"
+		}
+		else{
+			return listaDeArchivos.add(archivo)
+		}
+		}
+			
+	method contieneArchivo(archivo){
+		return listaDeArchivos.contains(archivo)
+	}	
+	
+	method sacarArchivo(archivo){
+		listaDeArchivos.remove(archivo)
+	}
+	
+	method agregarArchivo(archivo){
+		listaDeArchivos.add(archivo)
+	}
+
+}
+
+//consola
+//var matematicas= new Archivo(nombreArchivo="matematicas",carpeta="facultad")
+// var facultad= new Carpeta(nombreArchivo="matematicas",carpeta="facultad",listaDeArchivos=[matematicas],nombreCarpeta="facultad")
+
+
+
+////////////////
+/// rolando
+
+
+
+
+object rolando{
+	var hechizoPreferido= fuerzaOscura
+	var valorBase = 1
+	var artefactos = []
+	method nivelDeHechiceria(){
+		return (3 * hechizoPreferido.poder()) + fuerzaOscura.valor()
+	}
+	method cambiarHechizoPreferido(nuevoHechizo){
+		hechizoPreferido = nuevoHechizo
+	}
+	method seCreePoderoso(){
+		return hechizoPreferido.esPoderoso()
+	}
+	method lucha(){
+		return valorBase + artefactos.sum({unArtefacto=>unArtefacto.lucha()})
+	}
+	method agregarArtefacto(_artefacto){
+		artefactos.add(_artefacto)
+	}
+	method removerArtefacto(_artefacto){
+		artefactos.remove(_artefacto)
+	}
+	method mayorHabilidadLucha(){
+		return self.lucha() > self.nivelDeHechiceria()
+	}
+	method cambiarValorBase(_valorBase){
+		valorBase = _valorBase
+	}
+}
+
+object fuerzaOscura{
+	var valor= 5
+	method valor(){
+		return valor
+	}
+	
+	method cambiarValor(nueva){
+		valor= nueva
+	}
+	method eclipse(){
+		valor *= 2
+	}
+}
+
+//hechizos
+
+object espectroMalefico{
+	var nombre= 'espectro Malefico'
+	method poder(){
+		return nombre.length()
+	}
+	method esPoderoso(){
+		return self.poder() > 15
+	}
+	method cambiarNombre(_nombre){
+		nombre = _nombre
+	}
+}
+
+object hechizoBasico{
+	method poder(){
+		return 10
+	}
+	method esPoderoso(){
+		return false
+	}
+}
+
+//ARTEFACTOS
+
+object espadaDelDestino{
+	method lucha(){
+		return 3
+	}
+}
+
+object collarDivino{
+	var perlas = 4
+	method lucha(){
+		return perlas
+	}
+	method cambiarPerlas(_perlas){
+		perlas = _perlas
+	}
+}
+
+object mascaraOscura{
+	method lucha(){
+		return 4.max(fuerzaOscura.valor()/2)
+	}
+}
+
+
+//ARMADURA
+object armadura{
+	var duenio = rolando
+	var refuerzo = ninguno
+	method valor(){
+		return 2 + refuerzo.lucha()
+	}
+	method cambiarRefuerzo(_refuerzo){
+		refuerzo = _refuerzo
+	}
+	method duenio(){
+		return duenio
+	}
+	method cambiarDuenio(_duenio){
+		duenio = _duenio
+	}
+}
+
+//REFUERZOS:
+
+object cotaDeMalla{
+	method lucha(){
+		return 1
+	}
+}
+
+object bendicion{
+	method lucha(){
+		return armadura.duenio().nivelDeHechiceria()
+	}
+}
+
+object hechizo{
+	var hechizo = espectroMalefico
+	method lucha(){
+		return hechizo.poder()
+	}
+	method cambiarABasico(){
+		hechizo = hechizoBasico
+	}
+	method cambiarAMalefico(){
+		hechizo = espectroMalefico
+	}
+}
+
+object ninguno{
+	method lucha(){
+		return 0
+	}
+}
+
+
+ 
+ 
+ 
