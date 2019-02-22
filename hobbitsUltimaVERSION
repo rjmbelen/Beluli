@@ -1,0 +1,77 @@
+data Anillo = UnAnillo{
+ nombreAnillo:: String,
+ peso:: Int,
+ fraseAnillo:: String}
+ deriving Show
+ 
+data Hobbit= UnHobbit{
+ nombre:: String,
+ estatura:: Int,
+ salud:: Int,
+ fuerza:: Int,
+ esDeComarca:: Bool,
+ anillo::Anillo}
+ deriving Show
+	
+
+ 
+ --HOBBITS
+frodo= UnHobbit "Frodo" 106 10 50 True unico 
+sam= UnHobbit "Sam" 100 20 60 True amor
+ 	
+
+ --ANILLO
+unico= UnAnillo "Anillo Unico" 12 "Un Anillo para gobernarlos a todos. Un Anillo para encontrarlos, un Anillo para atraerlos a todos y atarlos en las tinieblas."
+amor = UnAnillo "amor" 20 "El poder del amor"
+extra= UnAnillo "extra" 25 "da magia"
+
+-- :type  poderAnillo en consola
+--poderAnillo:: Anillo -> Int
+
+poderAnillo anillo  =  peso anillo * length ( fraseAnillo anillo)
+
+-- VA ANILLO PORQUE SINO NO SABE A QUE COSA DEL ANILLO APLICARLE length
+
+
+
+
+--absoluto:: (Num a, a)=> a->a
+absoluto nro 
+ |  nro < 0 = 0
+ |  otherwise = nro
+
+{-resistencia:: Hobbit -> Int 
+resistencia hobbit
+ | esDeComarca hobbit = absoluto ( (estatura hobbit * salud hobbit ) + fuerza hobbit + empiezaConLetra hobbit - poderAnillo (anillo hobbit))
+ | otherwise = absoluto ((salud hobbit * fuerza hobbit) + empiezaConLetra hobbit - poderAnillo (anillo hobbit))
+ 
+-}
+
+ --resistencia:: Hobbit -> Int 
+
+resistencia hobbit
+ | esDeComarca hobbit = absoluto ( ((*estatura hobbit).salud) hobbit  + fuerza hobbit + empiezaConLetra hobbit - (poderAnillo.anillo) hobbit)
+ | otherwise = absoluto (((*salud hobbit).fuerza)hobbit + empiezaConLetra hobbit - (poderAnillo.anillo) hobbit)
+	--(f        . g) mismo 
+
+empiezaConLetra:: Hobbit -> Int
+empiezaConLetra hobbit  
+ | ((=='F').(head.nombre))hobbit || ((== 'f').(head.nombre))hobbit  = 10 
+ | otherwise = 0
+ 
+ -- ( (f) .(g) )mismo
+ 
+cambiarAnillo:: Hobbit-> Anillo -> Hobbit
+cambiarAnillo hobbit anillo1  =  hobbit {anillo= anillo1} 
+-- adentro no lleva hobbit porque es un anillo nuevo
+
+--comidas
+
+
+-- poner dentro del data en cada item , hobbit para modificar
+desayuno:: Hobbit -> Hobbit
+desayuno hobbit = hobbit {salud = ((+5).salud)hobbit, nombre= (("Errrp"++).nombre) hobbit}
+-
+
+
+
