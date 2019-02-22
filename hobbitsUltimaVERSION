@@ -71,7 +71,8 @@ cambiarAnillo hobbit anillo1  =  hobbit {anillo= anillo1}
 -- poner dentro del data en cada item , hobbit para modificar
 desayuno:: Hobbit -> Hobbit
 desayuno hobbit = hobbit {salud = ((+5).salud)hobbit, nombre= (("Errrp"++).nombre) hobbit}
--
+--desayuno hobbit= hobbit{salud = salud hobbit + 5, nombre= "Errrp" ++ nombre hobbit}
+
 
 
 
