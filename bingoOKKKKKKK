@@ -1,0 +1,32 @@
+duenioDelBingo = "Perez"
+ultimaBolilla = 17
+type Jugador =([Char],[Integer])
+jugador1  = ("Juan Perez", [5, 23, 35, 17, 56, 80])
+
+
+
+
+esGanadorDelBingo:: Jugador->Bool
+esGanadorDelBingo  jugador = jugadaValida jugador  && tieneUltimaBolilla jugador && esFamiliar jugador
+
+jugadaValida:: Jugador->Bool
+jugadaValida jugador = ((length.snd) jugador == 6) && esMasGrandeUltimo jugador &&esMasPequenioPrimero jugador -- LENGTH RECIBE UN PARAMETRO SOLO, POR ESO HAY QUE PONER PARENTESIS
+-- map elMayor
+esMasGrandeUltimo:: Jugador -> Bool
+esMasGrandeUltimo jugador =  (maximum.snd) jugador == (last.snd) jugador
+
+esMasPequenioPrimero:: Jugador -> Bool
+esMasPequenioPrimero jugador = (minimum.snd) jugador == (head.snd) jugador
+--esMasPequenioPrimero jugador= ((((==).minimum.snd)jugador).(head.snd)) jugador
+--										(g.f) mismo   ==   (a.b) mismo
+--									  ((((==).g.f) mismo).(a.b))     mismo
+
+--esFamiliar jugador= drop (length duenioDelBingo) fst jugador == duenioDelBingo
+esFamiliar:: Jugador -> Bool
+esFamiliar jugador = last (words (fst jugador)) == duenioDelBingo
+
+--words "beleb ro"
+--["beleb","ro"]
+
+tieneUltimaBolilla::Jugador->Bool
+tieneUltimaBolilla jugador= elem ultimaBolilla (snd jugador)
