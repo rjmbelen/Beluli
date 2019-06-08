@@ -1,0 +1,50 @@
+import Text.Show.Functions
+{-El fondo monetario internacional nos solicitó que modelemos su negocio, basado en realizar préstamos a países en apuros 
+financieros. Sabemos de cada país el "ingreso per cápita" que es el promedio de lo que cada habitante necesita para subsistir,
+ también conocemos la población activa en el sector público y la activa en el sector privado, la lista de recursos naturales 
+ (ej: "Minería", "Petróleo", "Industria pesada") y la deuda que mantiene con el FMI. -}
+ 
+ 
+ 
+type Promedio= Float
+type Recurso = String 
+
+
+data Pais= Pais{
+ingresoPerCapita::Promedio,
+pobActivaPublic::Float,
+pobActivaPrivate::Float,
+--recursosNaturales::[Recurso],
+deuda::Float
+
+} deriving (Show)
+
+
+{-
+
+reducir x cantidad de puestos de trabajo del sector público, lo que provoca que se reduzca la cantidad de 
+activos en el sector público y además que el ingreso per cápita disminuya en 20% si los puestos de trabajo son más de
+ 100 ó 15% en caso contrario
+
+
+-}
+
+
+argentina = Pais 10 20 30  100 
+
+fmi recetas pais = foldr $ pais recetas
+
+-- Si te dice 150% haces 150/100 = 1.5!!!!!
+
+prestar n pais = pais{deuda = deuda pais * 1.5}
+
+recetas = [ prestar 100]--,receta2 3 ]
+
+reducir cantidadPuestos pais = pais{
+ pobActivaPublic= pobActivaPublic pais - cantidadPuestos,
+ ingresoPerCapita= ingresoPerCapita pais - disminuir cantidadPuestos }  
+
+
+disminuir cant 
+ |cant > 100 =  0.2
+ |otherwise = 0.15
