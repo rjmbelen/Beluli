@@ -127,6 +127,31 @@ receta = [prestarPlata 2000, explotar "Mineria"]
 --receta = [ prestar 200, explotacion "mineria" ]
 --Ahora queremos aplicar la receta del punto 3.a al país Namibia (creado en el punto 1.b). 
 --Justificar cómo se logra el efecto colateral.
+receta = [prestar 2000, explotacion "Mineria"]
+
+-- PONER $ CON PARENTESIS!!!!!!!!
+aplicarReceta receta pais  = foldr ($) pais receta
+
+--el efecto se logra porque el foldr permite aplicarle al pais como semilla cada una de las funciones 
+-- que contiene la lista receta, es un efecto colateral porque le va aplicando una a una y luego queda el pais con esas aplicaciones
 
 
-aplicarReceta receta pais  = foldr $ pais receta
+{-
+
+Resolver todo el punto con orden superior, composición y aplicación
+parcial, no puede utilizar funciones auxiliares.
+
+a. Dada una lista de países conocer cuáles son los que pueden zafar,
+aquellos que tienen "Petróleo" entre sus riquezas naturales
+
+-} 
+
+--zafar paises = map  (=="petroleo") ((recursosNaturales pais) paises)
+
+zafar paises = elem "agua" (recursosNaturales paises) 
+
+
+za paises = foldr (zafar paises) [] paises
+
+--zafar2 paises = filter (\ pais -> (== "petroleo").(recursosNaturales pais) ) paises
+
