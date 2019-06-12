@@ -1,0 +1,63 @@
+
+
+---PRIMERA PARTE---------
+
+
+{-
+
+Los enanos de Nidavellir nos han pedido modelar los guanteletes que ellos producen en su herrería.
+ Un guantelete está hecho de un material (“hierro”, “uru”, etc.) y sabemos las gemas que posee. 
+ 
+ También se sabe de los personajes que tienen una edad, una energía, una serie de habilidades 
+ (como por ejemplo “usar espada”, “controlar la mente”, etc), su nombre y en qué planeta viven. 
+ 
+ 
+ Los fabricantes determinaron que cuando un guantelete está completo -es decir, tiene las 6 gemas posibles-
+ y su material es “uru”, se tiene la posibilidad de chasquear un universo que contiene a todos sus habitantes 
+ y reducir a la mitad la cantidad de dichos personajes. Por ejemplo si tenemos un universo en el cual existen 
+ ironMan, drStrange, groot y wolverine, solo quedan los dos primeros que son ironMan y drStrange. 
+ Si además de los 4 personajes estuviera viudaNegra, quedarían también ironMan y drStrange porque se considera 
+ la división entera.
+
+
+-}
+
+type Universo= [Personaje]
+type Habilidad=  String  ---- ??
+type Gema =String
+
+data Guantelete= Guantelete{
+material::String,
+gemas::[Gema]
+} deriving (Show)
+
+
+data Personaje= Personaje{
+edad::Int,
+energia::Int,
+habilidades::[Habilidad],
+nombrePersonje::String,
+planeta::String
+} deriving (Show)
+
+
+{-
+
+Los fabricantes determinaron que cuando un guantelete está completo -es decir, tiene las 6 gemas posibles-
+ y su material es “uru”, se tiene la posibilidad de chasquear un universo que contiene a todos sus habitantes 
+ y reducir a la mitad la cantidad de dichos personajes. Por ejemplo si tenemos un universo en el cual existen 
+ ironMan, drStrange, groot y wolverine, solo quedan los dos primeros que son ironMan y drStrange. 
+ Si además de los 4 personajes estuviera viudaNegra, quedarían también ironMan y drStrange porque se considera 
+ la división entera.
+
+
+-}
+
+--estaCompleto guantelete=  (==6) length(gemas guantelete)
+--estaCompleto1 =  (==6).length.gemas 
+
+
+Guantelete= Guantelete{
+material= "uru",
+gemas= ["jaja", "lala"]
+}
