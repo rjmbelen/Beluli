@@ -1,0 +1,81 @@
+
+import vehiculo.*
+
+describe "TestsDePilotos"{
+	
+const s14b23 = new Motor(cilindradaCms=2300,numCilindros=4,
+presionMedia=400,rpm=10000,litrosAceite=5)	
+const radial1 = new Radial(anioFabricacion=2018)
+const radial2 = new Radial(anioFabricacion=2004)
+
+const radialNueva = new Radial(anioFabricacion=2019)
+
+//MOTOR
+const om617D30 = new VinDiesel(cilindradaCms=3005,numCilindros=5,
+	presionMedia=300,rpm=4000,litrosAceite=5)
+
+//RUEDAS 
+const slick1 = new Slick(anioFabricacion=2018)
+const slickNueva = new Slick(anioFabricacion = 2019)
+
+const slickVencida = new Slick(anioFabricacion=2015)
+const slick2 = new Slick(anioFabricacion=2015) 
+const slickVieja = new Slick(anioFabricacion=2013)
+//AUTOS
+
+const e30 = new Vehiculo(motor=s14b23,ruedas=[radial1,radialNueva],
+peso=883.2) //BIENNNNNNNNNNNNNNNNNNNNNNN
+
+const flechaDePlata = new Vehiculo(motor=om617D30,
+	ruedas=[slick1,slickNueva],peso=1000)  //BIENnnnnn
+
+
+
+//PILOTOS
+
+ 
+const traverso = new Piloto(nombre="Juan Maria Traverso",
+auto=e30,tiempoPorCurva=1,tipoDePiloto=audaz) //BIENNNN
+
+const fangio = new Piloto(nombre="Juan Manuel Fangio",
+auto=flechaDePlata,nivelDeVirtuosismo=5,tipoDePiloto=virtuoso)//BIEN
+
+const ej20 = new Motor(cilindradaCms=2300,numCilindros=4,
+presionMedia=400,rpm=10000,litrosAceite=5)
+
+//AUTO IMPREZA
+const impreza = new Vehiculo(motor=ej20,
+	ruedas=[slick2,slickVieja,slickVencida,slickNueva],peso=990)
+
+const mcrae = new Piloto(nombre="Colin McRae",
+	auto=impreza,tipoDePiloto=cabulero)
+
+const r26B = new Motor(cilindradaCms=2300,numCilindros=4,
+presionMedia=400,rpm=10000,litrosAceite=5)
+
+const auto787B = new Vehiculo(motor=r26B,peso=830)
+
+//const herbert = new seguidor(nombre="Johnny Herbert",
+//	auto=auto787B,pilotoDeModa=fangio)
+
+const stubImpar = new Pista(nombre="stub1",cantidadCurvas=8,
+	largoXVuelta=4.6)
+	
+const stubPar = new Pista(nombre="stub",cantidadCurvas=10,
+	largoXVuelta=2.1)
+	
+fixture{
+seguidor.nombre("Johnny Herbert")
+seguidor.auto(auto787B)
+seguidor.pilotoDeModa(fangio)
+seguidor.tipoDePiloto(mcrae)
+}
+
+
+
+test "Conocer el tiempo de piloto para Traverso que es un 
+audaz en el stub de nombre impar"{
+	assert.equals(36.8,seguidor.tiempo(stubImpar))
+}
+
+}
